@@ -9,7 +9,7 @@ const AnecdoteList = () => {
     
     return (
         <>
-              {anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase())).sort((a,b) => b.votes - a.votes).map(anecdote =>
+              {[...anecdotes].filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase())).sort((a,b) => b.votes - a.votes).map(anecdote =>
                 <div key={anecdote.id}>
                   <div>
                     {anecdote.content}
