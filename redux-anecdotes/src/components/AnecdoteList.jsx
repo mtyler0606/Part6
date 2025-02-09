@@ -18,7 +18,7 @@ const AnecdoteList = () => {
                   </div>
                   <div>
                     has {anecdote.votes}
-                    <button onClick={() => {dispatch(vote(anecdote.id)); dispatch(setMessage(anecdote.content)); setTimeout(() => {dispatch(clearMessage())},5000)}}>vote</button>
+                    <button onClick={() => {dispatch(vote(anecdote)); dispatch(setMessage(anecdote.content)); setTimeout(() => {dispatch(clearMessage())},5000)}}>vote</button>
                   </div>
                 </div>
               )}
