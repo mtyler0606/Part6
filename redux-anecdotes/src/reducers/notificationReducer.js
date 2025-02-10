@@ -9,6 +9,7 @@ const notificationSlice = createSlice({
           }
     },
     reducers: {
+        
         setMessage(state,action){
             return {
                 message: `you voted ${action.payload}`,
@@ -30,6 +31,13 @@ const notificationSlice = createSlice({
 
     }
 })
+
+export const setAndClearMessage = (message, time) => {
+    return async dispatch => {
+        dispatch(setMessage(message))
+        setTimeout(() => {dispatch(clearMessage())}, time * 1000)
+    }
+}
 
 export const {setMessage, clearMessage} = notificationSlice.actions
 export default notificationSlice.reducer

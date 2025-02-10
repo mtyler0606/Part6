@@ -71,7 +71,6 @@ export const createAnecdote = anecdote => {
 }
 export const vote = anecdote => {
   return async dispatch => {
-    //const anecdoteToChange = findAnecdoteById(id)
     console.log(anecdote)
     const changedAnecdote = {
       ...anecdote,
@@ -82,6 +81,6 @@ export const vote = anecdote => {
   }
 }
 
-export const { /*createAnecdote, vote,*/ appendAnecdote, setAnecdotes, updateAnecdote } = anecdoteSlice.actions
+export const { appendAnecdote, setAnecdotes, updateAnecdote } = anecdoteSlice.actions
 
 export default anecdoteSlice.reducer
