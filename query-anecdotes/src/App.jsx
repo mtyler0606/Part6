@@ -2,18 +2,16 @@ import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {createAnecdote, getAnecdotes, updateAnecdote } from './request'
-
+import { useNotificationDispatch } from './NotificationContext'
 const App = () => {
   const queryClient = useQueryClient()
+  const dispatch = useNotificationDispatch()
 
   const newAnecdoteMutation = useMutation({
     mutationFn: createAnecdote,
-    onSuccess: /*(newAnecdote)*/ () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['anecdotes']})
-      /*
-      const anecdotes = queryClient.getQueryData({ queryKey: ['anecdotes']})
-      queryClient.setQueryData({ queryKey: ['anecdotes']}, anecdotes.concat(newAnecdote))
-      */
+
     }
   })
   const updateAnecdoteMutation = useMutation({
@@ -29,7 +27,7 @@ const App = () => {
     refetchOnWindowFocus: false
   })
 
-  console.log(JSON.parse(JSON.stringify(result)))
+ // console.log(JSON.parse(JSON.stringify(result)))
 
   const handleVote = (anecdote) => {
     updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes + 1})
@@ -54,7 +52,7 @@ if(result.isError){
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => handleVote(anecdote)}>vote</button>
+            <button onClick={() => {handleVote(anecdote); dispatch({type: "VOTE", content: anecdote.content}); setTimeout(() => {dispatch({type: "RESET"})}, 3000)}}>vote</button>
           </div>
         </div>
       )}
