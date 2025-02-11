@@ -16,6 +16,12 @@ const App = () => {
       */
     }
   })
+  const updateAnecdoteMutation = useMutation({
+    mutationFn: updateAnecdote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['anecdotes']})
+    }
+  })
 
   const result = useQuery({
     queryKey: ['anecdotes'],
@@ -26,7 +32,7 @@ const App = () => {
   console.log(JSON.parse(JSON.stringify(result)))
 
   const handleVote = (anecdote) => {
-    console.log('vote')
+    updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes + 1})
   }
 
 const anecdotes = result.isLoading ? []: result.data
